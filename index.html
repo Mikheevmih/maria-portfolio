@@ -378,18 +378,12 @@
   </style>
 
   <style id="sticky-header-brand-reveal">
-    /* Brand and logo appear when section 01 reaches the sticky navigation. */
+    /* Keep the logo and Maria's name visible at every scroll position. */
     .site-header .header-brand{
       display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
       height:var(--header-cta-height,38px);min-width:0;flex-shrink:1;
-      visibility:hidden;opacity:0;pointer-events:none;
-      transform:translateY(7px) scale(.97);
-      transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1),visibility 0s linear .55s;
-    }
-    .site-header.brand-visible .header-brand{
       visibility:visible;opacity:1;pointer-events:auto;
-      transform:translateY(0) scale(1);
-      transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1),visibility 0s;
+      transform:none;
     }
     .site-header .header-brand img{
       display:block;flex:0 0 auto;
@@ -403,10 +397,6 @@
     }
     @media(max-width:360px){
       .site-header .header-inner{gap:6px}
-    }
-    @media(prefers-reduced-motion:reduce){
-      .site-header .header-brand,
-      .site-header.brand-visible .header-brand{transition:none}
     }
   </style>
 </head>
@@ -580,25 +570,17 @@
   </main>
   <script>
 
-    // Show the header identity only when section 01 enters the reading area.
+    // Keep the brand icon the same height as the contact button.
     const siteHeader=document.querySelector('.site-header');
-    const aboutSection=document.getElementById('about');
-    const syncHeaderBrand=()=>{
-      siteHeader.classList.toggle('brand-visible',
-        aboutSection.getBoundingClientRect().top <= siteHeader.getBoundingClientRect().bottom);
-    };
     const headerContactButton=document.querySelector('.site-header .header-cta');
     const syncHeaderBrandHeight=()=>{
       siteHeader.style.setProperty('--header-cta-height',headerContactButton.getBoundingClientRect().height+'px');
     };
-    window.addEventListener('scroll',syncHeaderBrand,{passive:true});
-    window.addEventListener('resize',syncHeaderBrand,{passive:true});
     window.addEventListener('resize',syncHeaderBrandHeight,{passive:true});
     if('ResizeObserver' in window){
       new ResizeObserver(syncHeaderBrandHeight).observe(headerContactButton);
     }
     syncHeaderBrandHeight();
-    syncHeaderBrand();
     const navigation=document.getElementById('navigation');
     const menuButton=document.querySelector('.menu-btn');
     menuButton.addEventListener('click',()=>{const open=navigation.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню')});
