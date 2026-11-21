@@ -273,6 +273,14 @@
     .case-expand .ui-icon{transition:transform .2s ease}
     .case-expand[aria-expanded="true"] .ui-icon{transform:rotate(-45deg)}
   </style>
+
+  <style id="mobile-portrait-first">
+    /* On phones and narrow tablets, show Maria's portrait before the intro. */
+    @media (max-width: 800px) {
+      .hero-art { grid-row: 1; }
+      .hero-content { grid-row: 2; }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
