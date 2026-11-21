@@ -4,6 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#edf5ff">
+  <script id="theme-early-init">
+    /* Apply a saved choice before the page paints, avoiding a light-theme flash. */
+    try {
+      if (localStorage.getItem('maria-portfolio-theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme','dark');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content','#091428');
+      }
+    } catch (error) { /* Private browsing can deny localStorage. */ }
+  </script>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
   <meta name="description" content="Мария Денисова — маркетинг, креативные спецпроекты и измеримый рост. Кейсы X5 Digital, МТС, Мегамаркета и Ozon.">
@@ -500,6 +509,164 @@
       }
     }
   </style>
+
+  <style id="portfolio-dark-mode">
+    /* The Luminous Blue palette has a complete midnight counterpart. */
+    html[data-theme="dark"]{
+      color-scheme:dark;
+      --bg:#091428;--paper:#142440;--ink:#ecf4ff;--muted:#a9bedb;
+      --line:#314362;--acid:#5c9aff;--green:#55d9ff;
+      --violet:#182f57;--pink:#234872;
+      --deep:#091b39;--cobalt:#4386ff;--cyan:#80e5ff;
+    }
+    html[data-theme="dark"] body{background:var(--bg);color:var(--ink)}
+    html[data-theme="dark"] ::selection{background:#4386ff;color:#fff}
+    html[data-theme="dark"] .site-header{
+      background:rgba(10,24,48,.93);
+      border-bottom-color:#334a71;
+      box-shadow:0 8px 28px rgba(0,5,20,.22);
+    }
+    html[data-theme="dark"] .main-nav{
+      background:#101e38;color:#f1f7ff;
+      border-bottom-color:#334a71;
+    }
+    html[data-theme="dark"] .main-nav a:hover{color:#9bdcff}
+    html[data-theme="dark"] .header-cta{
+      border-color:#83b5ff;color:#d8ebff;background:rgba(58,115,216,.09);
+    }
+    html[data-theme="dark"] .header-cta:hover{background:#3275e9;color:#fff}
+    html[data-theme="dark"] .menu-btn span{background:#eff7ff}
+    html[data-theme="dark"] .site-header .brand-word-filled{color:#f0f6ff}
+    html[data-theme="dark"] .site-header .brand-word-outline{-webkit-text-stroke:.75px #e4efff}
+    html[data-theme="dark"] .hero{
+      background:
+        radial-gradient(ellipse 38% 58% at 90% 30%,rgba(30,95,224,.33),transparent 83%),
+        radial-gradient(ellipse 42% 52% at 44% 95%,rgba(27,132,181,.15),transparent 81%),
+        linear-gradient(125deg,#0a162a 0%,#0e2040 55%,#152d57 100%);
+      border-bottom-color:#2a4166;
+    }
+    html[data-theme="dark"] .hero::before{
+      background:radial-gradient(circle,rgba(90,167,255,.19),transparent 70%);
+    }
+    html[data-theme="dark"] .hero h1 .outline{-webkit-text-stroke-color:#edf6ff}
+    html[data-theme="dark"] .hero-label{color:#a8d0ff}
+    html[data-theme="dark"] .hero-label-dot{color:#75e4ff}
+    html[data-theme="dark"] .hero-intro strong{color:#86c5ff}
+    html[data-theme="dark"] .text-link{color:#dfedff}
+    html[data-theme="dark"] .text-link:hover,
+    html[data-theme="dark"] .case-expand:hover{color:#84c8ff}
+    html[data-theme="dark"] .btn-dark{
+      background:#347af1;border-color:#347af1;color:#fff;
+      box-shadow:0 8px 24px rgba(16,99,254,.27);
+    }
+    html[data-theme="dark"] .btn-dark:hover{
+      background:#5a9fff;border-color:#5a9fff;color:#071a32;
+    }
+    html[data-theme="dark"] .photo-halo{border-color:#79b1ff}
+    html[data-theme="dark"] .hero-badge{
+      background:#152a4c;border-color:#7caeff;color:#f0f6ff;
+      box-shadow:7px 8px 0 #0a326d;
+    }
+    html[data-theme="dark"] .mini-foot{color:#abc6e7}
+    html[data-theme="dark"] .eyebrow::before{background:#7dc5ff}
+    html[data-theme="dark"] .section-desc,
+    html[data-theme="dark"] .about-aside p{color:#a9c1df}
+    html[data-theme="dark"] .about-copy p strong{
+      background:linear-gradient(transparent 69%,rgba(52,135,252,.49) 69%);
+    }
+    html[data-theme="dark"] .skill{
+      border-color:#446593;background:rgba(69,123,216,.12);
+      color:#d9ecff;
+    }
+    html[data-theme="dark"] .section-dark{
+      background:
+        radial-gradient(ellipse 65% 90% at 0% 8%,rgba(28,79,167,.34),transparent 90%),
+        linear-gradient(125deg,#060f25 0%,#091630 75%);
+      border-color:#213556;
+    }
+    html[data-theme="dark"] .section-dark .eyebrow::before{background:#80e5ff}
+    html[data-theme="dark"] .timeline,
+    html[data-theme="dark"] .exp-item{border-color:#364c70}
+    html[data-theme="dark"] .result{
+      background:#142440;border-color:#344c72;color:#f0f6ff;
+      box-shadow:0 9px 26px rgba(0,5,23,.16);
+    }
+    html[data-theme="dark"] .result:nth-child(2){
+      background:linear-gradient(138deg,#1751d0 0%,#2a70eb 58%,#307fc4 100%);
+      border-color:#4c91ff;color:#fff;
+    }
+    html[data-theme="dark"] .result:nth-child(3){
+      background:linear-gradient(140deg,#182d53,#203d6d);
+      border-color:#385781;
+    }
+    html[data-theme="dark"] .result .result-note{color:#b4cae7}
+    html[data-theme="dark"] .result:nth-child(2) .result-note{color:#e0efff}
+    html[data-theme="dark"] .result-brand-logo{background:#fff}
+    html[data-theme="dark"] .filter{
+      background:#13243f;border-color:#45628e;color:#d7e7ff;
+    }
+    html[data-theme="dark"] .filter[aria-pressed="true"],
+    html[data-theme="dark"] .filter:hover{
+      background:#347ef5;border-color:#347ef5;color:#fff;
+    }
+    html[data-theme="dark"] .case-cover{
+      box-shadow:0 15px 35px rgba(0,4,17,.19);
+    }
+    /* Keep the cover graphics in each company's own brand colors. */
+    html[data-theme="dark"] .case-expand{color:#a9d9ff}
+    html[data-theme="dark"] .case-brief{
+      background:#142440;border-color:#385175;color:#e8f2ff;
+    }
+    html[data-theme="dark"] .case-links{border-top-color:#385175}
+    html[data-theme="dark"] .case-links a{color:#8bc5ff}
+    html[data-theme="dark"] .case-links a:hover{color:#bce9ff}
+    html[data-theme="dark"] .education-card{border-left-color:#5b9dff}
+    html[data-theme="dark"] .education-aside{
+      background:linear-gradient(132deg,#172a4f,#214477 55%,#2b5785);
+      color:#f2f8ff;box-shadow:0 12px 28px rgba(1,7,23,.25);
+    }
+    html[data-theme="dark"] .education-aside small{color:#b8d7ff}
+    html[data-theme="dark"] .contact-section{
+      background:
+        radial-gradient(ellipse 54% 77% at 87% -5%,rgba(64,135,253,.24),transparent 82%),
+        linear-gradient(128deg,#0a2661 0%,#123fa0 62%,#205ec4 100%);
+      color:#fff;
+    }
+    html[data-theme="dark"] .contact-section::before{border-color:rgba(169,215,255,.1)}
+    html[data-theme="dark"] .telegram-primary{
+      color:#092a69;background:#e7f6ff;
+    }
+    html[data-theme="dark"] .telegram-primary:hover{background:#c4ebff}
+    html[data-theme="dark"] .footer{border-top-color:rgba(216,238,255,.32)}
+    /* An accessible toggle in the footer, equally clear in both themes. */
+    .footer .theme-toggle{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      padding:9px 13px;border:1px solid rgba(241,250,255,.56);
+      border-radius:999px;background:rgba(255,255,255,.10);
+      color:#fff;font-weight:800;font-size:12px;line-height:1.2;
+      white-space:nowrap;cursor:pointer;
+      transition:background .2s,border-color .2s,transform .2s;
+    }
+    .footer .theme-toggle:hover{background:rgba(255,255,255,.23);border-color:#fff;transform:translateY(-1px)}
+    .footer .theme-toggle:focus-visible{
+      outline:3px solid #a8f1ff;outline-offset:3px;
+    }
+    .footer .theme-toggle .theme-icon{
+      width:17px;height:17px;flex:none;
+      fill:none;stroke:currentColor;stroke-width:1.8;
+      stroke-linecap:round;stroke-linejoin:round;
+    }
+    .footer .theme-icon-sun{display:none}
+    html[data-theme="dark"] .footer .theme-icon-sun{display:block}
+    html[data-theme="dark"] .footer .theme-icon-moon{display:none}
+    @media(max-width:520px){
+      .footer{gap:15px}
+      .footer .theme-toggle{font-size:11px;padding:10px 12px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .footer .theme-toggle{transition:none}
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -666,7 +833,11 @@
           <span>Москва, Россия</span>
         </div>
       </div>
-      <footer class="footer"><span>© <span id="year">2026</span> Мария Денисова</span><span>Marketing / Creative / Growth</span><a href="#top">Наверх <svg class="ui-icon ui-icon-up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20V4m-7 7 7-7 7 7"/></svg></a></footer>
+      <footer class="footer"><span>© <span id="year">2026</span> Мария Денисова</span><span>Marketing / Creative / Growth</span><button class="theme-toggle" id="themeToggle" type="button" aria-label="Включить тёмную тему" aria-pressed="false">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+          <span class="theme-toggle-label">Тёмная тема</span>
+        </button><a href="#top">Наверх <svg class="ui-icon ui-icon-up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20V4m-7 7 7-7 7 7"/></svg></a></footer>
     </div></section>
   </main>
   <script>
@@ -693,6 +864,25 @@
       new ResizeObserver(syncContactCharacterHeight).observe(contactHeadline);
     }
     syncContactCharacterHeight();
+    // Store the visitor's explicit theme choice, if browser storage is permitted.
+    const themeToggle=document.getElementById('themeToggle');
+    const themeToggleLabel=themeToggle.querySelector('.theme-toggle-label');
+    const themeColorMeta=document.querySelector('meta[name="theme-color"]');
+    const applyTheme=(nextTheme,persist)=>{
+      const dark=nextTheme==='dark';
+      document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+      themeToggle.setAttribute('aria-pressed',String(dark));
+      themeToggle.setAttribute('aria-label',dark?'Включить светлую тему':'Включить тёмную тему');
+      themeToggleLabel.textContent=dark?'Светлая тема':'Тёмная тема';
+      themeColorMeta.setAttribute('content',dark?'#091428':'#edf5ff');
+      if(persist){
+        try{localStorage.setItem('maria-portfolio-theme',dark?'dark':'light')}catch(error){}
+      }
+    };
+    applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light',false);
+    themeToggle.addEventListener('click',()=>{
+      applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark',true);
+    });
     const navigation=document.getElementById('navigation');
     const menuButton=document.querySelector('.menu-btn');
     menuButton.addEventListener('click',()=>{const open=navigation.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню')});
