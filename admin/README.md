@@ -17,29 +17,30 @@ GitHub Pages — статический хостинг, поэтому пров�
 
 Адрес `/admin/` открыт для просмотра формы входа. Метатег `noindex` просит поисковые системы не индексировать эту страницу, но не является механизмом защиты.
 
-## Настроить Cloudflare (один раз)
+## Настроить Cloudflare через браузер (без терминала)
 
-1. Создайте аккаунт https://dash.cloudflare.com и установите Node.js.
-2. Скачайте проект из GitHub или клонируйте репозиторий. Откройте терминал в папке `admin`.
-3. Выполните:
-   ```bash
-   npx wrangler login
-   npx wrangler deploy
-   ```
-   Cloudflare предложит авторизовать Wrangler и покажет опубликованный адрес Worker, например `https://maria-portfolio-admin-api.<subdomain>.workers.dev`.
-4. Создайте три секрета (не показывайте значения другим людям):
-   ```bash
-   npx wrangler secret put ADMIN_PASSWORD
-   npx wrangler secret put SESSION_SECRET
-   npx wrangler secret put GITHUB_TOKEN
-   ```
-   - `ADMIN_PASSWORD` — длинный уникальный пароль, лучше 16+ символов.
-   - `SESSION_SECRET` — случайная строка не меньше 32 байт. Сгенерировать можно командой `openssl rand -hex 32`.
-   - `GITHUB_TOKEN` — fine-grained personal access token для репозитория `Mikheevmih/maria-portfolio` с разрешением **Contents: Read and write**; желательно установить срок действия.
-5. В `admin/config.json` задайте `apiBaseUrl` как опубликованный HTTPS-адрес Worker **без слэша в конце**. Сохраните изменение в GitHub.
-6. В настройках GitHub Pages выберите **Deploy from a branch → main → /(root)**. Объедините pull request в `main`. После публикации откройте страницу `/admin/` и войдите.
+1. Откройте [Cloudflare Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages).
+2. Нажмите **Create application → Import a repository / Get started**. Свяжите Cloudflare с GitHub и разрешите доступ к репозиторию `Mikheevmih/maria-portfolio`.
+3. На экране настройки выберите:
+   - **Repository**: `Mikheevmih/maria-portfolio`
+   - **Git branch**: `feature/secure-admin` (пока админка тестируется в отдельной ветке)
+   - **Root directory**: `admin`
+   - **Worker name**: `maria-portfolio-admin-api` (совпадает с `name` в `wrangler.toml`)
+   - **Build command**: пусто, если поле необязательно
+   - **Deploy command**: `npx wrangler deploy`
+4. Нажмите **Save and Deploy**. Cloudflare покажет HTTPS-адрес вида `https://maria-portfolio-admin-api.<ваш-subdomain>.workers.dev`. До настройки секретов API будет отвечать ошибкой 503 на запросы входа — это нормально.
+5. Зайдите в созданный Worker → **Settings → Variables and Secrets → Add**. Добавьте три значения с типом **Secret**:
+   - `ADMIN_PASSWORD` — длинный уникальный пароль, желательно 16+ символов;
+   - `SESSION_SECRET` — случайная строка 64 символа в hex (можно сгенерировать в менеджере паролей); 
+   - `GITHUB_TOKEN` — fine-grained personal access token GitHub с доступом **только** к `Mikheevmih/maria-portfolio` и разрешением **Contents: Read and write**.
+   Сохраните изменения кнопкой **Deploy**.
+6. В `admin/config.json` укажите `apiBaseUrl` равным HTTPS-адресу Worker без слэша на конце. **Не добавляйте туда пароль и токен.**
+7. После проверки интерфейса объедините pull request в `main`, а в Cloudflare в **Settings → Builds** переключите отслеживаемую ветку на `main`. Это позволит дальнейшим изменениям Worker автоматически развёртываться из основного репозитория.
+8. Админка появится на `https://mikheevmih.github.io/maria-portfolio/admin/` после включения GitHub Pages и объединения PR.
 
-Обратите внимание: конфигурация Worker уже указывает допустимый origin `https://mikheevmih.github.io` и репозиторий. Если измените адрес сайта, обновите `SITE_ORIGIN` в `admin/wrangler.toml` и выполните `npx wrangler deploy` ещё раз.
+Важно: текущий PR пока черновик. `main` и опубликованный сайт не изменены. Не публикуйте секреты в чате, git-коммитах, документах и скриншотах.
+
+Если нужна установка через командную строку, альтернативой остаётся запуск `npx wrangler deploy` из папки `admin` после `npx wrangler login`.
 
 ## Как пользоваться
 
