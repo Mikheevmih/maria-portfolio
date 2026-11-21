@@ -350,12 +350,6 @@
     /* Contacts: lead visitors from the headline to the primary Telegram action. */
     .contact-headline{min-width:0;max-width:800px;flex:1 1 auto}
     .contact-headline h2{margin:0}
-    .contact-flow-arrow{
-      display:block;width:clamp(180px,32vw,345px);height:auto;
-      margin:12px 0 -10px clamp(20px,19vw,185px);
-      overflow:visible;filter:drop-shadow(0 3px 7px rgba(2,35,121,.2));
-      pointer-events:none
-    }
     .contact-cta-wrap{display:flex;flex-direction:column;align-items:flex-start;gap:19px;padding:12px 0 68px}
     .telegram-primary{
       display:inline-flex;align-items:center;gap:15px;max-width:100%;
@@ -373,12 +367,10 @@
     .contact-secondary a:hover{color:#b8f7ff}
     @media(max-width:800px){
       .contact-top{gap:12px}
-      .contact-flow-arrow{width:clamp(185px,54vw,260px);margin:12px 0 -3px clamp(35px,24vw,120px)}
       .contact-cta-wrap{padding:4px 0 52px;gap:20px}
     }
     @media(max-width:520px){
       .contact-top h2{font-size:clamp(42px,12.4vw,59px);line-height:.96}
-      .contact-flow-arrow{width:min(65vw,245px);margin:14px 0 0 clamp(30px,20vw,95px)}
       .telegram-primary{font-size:clamp(17px,5vw,21px);padding:17px 19px;gap:10px}
       .contact-secondary{flex-direction:column;align-items:flex-start;gap:9px}
     }
@@ -386,28 +378,35 @@
   </style>
 
   <style id="sticky-header-brand-reveal">
-    /* The pixel portrait and name reveal only as the "About" section reaches the sticky header. */
+    /* Brand and logo appear when section 01 reaches the sticky navigation. */
     .site-header .header-brand{
-      display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+      display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+      height:var(--header-cta-height,38px);min-width:0;flex-shrink:1;
       visibility:hidden;opacity:0;pointer-events:none;
-      transform:translateY(-6px);transition:opacity .2s ease,transform .2s ease,visibility .2s;
+      transform:translateY(7px) scale(.97);
+      transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1),visibility 0s linear .55s;
     }
     .site-header.brand-visible .header-brand{
-      visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0);
+      visibility:visible;opacity:1;pointer-events:auto;
+      transform:translateY(0) scale(1);
+      transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1),visibility 0s;
     }
     .site-header .header-brand img{
-      display:block;flex:0 0 auto;width:1em;height:1em;max-height:1em;
-      border-radius:3px;object-fit:cover;
+      display:block;flex:0 0 auto;
+      width:var(--header-cta-height,38px);height:var(--header-cta-height,38px);
+      max-height:100%;border-radius:7px;object-fit:cover;
     }
+    .site-header .header-brand span{white-space:nowrap;line-height:1}
     @media(max-width:520px){
-      .site-header .header-inner{gap:10px}
-      .site-header .header-brand{gap:5px;font-size:clamp(10px,2.9vw,14px);letter-spacing:-.04em}
+      .site-header .header-inner{gap:8px}
+      .site-header .header-brand{gap:5px;font-size:clamp(10px,2.85vw,13px);letter-spacing:-.05em}
     }
     @media(max-width:360px){
       .site-header .header-inner{gap:6px}
     }
     @media(prefers-reduced-motion:reduce){
-      .site-header .header-brand{transition:none}
+      .site-header .header-brand,
+      .site-header.brand-visible .header-brand{transition:none}
     }
   </style>
 </head>
@@ -561,10 +560,7 @@
       <div class="contact-top" style="margin-top:32px">
         <div class="contact-headline">
           <h2>СДЕЛАЕМ<br>ЧТО-ТО<br>ЗАМЕТНОЕ?</h2>
-          <svg class="contact-flow-arrow" viewBox="0 0 360 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M334 10C295 16 310 48 242 59C176 70 165 60 121 85C91 102 62 100 24 104" stroke="#B8F7FF" stroke-width="9" stroke-linecap="round"/>
-            <path d="M57 76L21 104L61 117" stroke="#B8F7FF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          
         </div>
         <p class="contact-caption">Креативные спецпроекты, продуктовый маркетинг, запуски и коллаборации. Открыта к профессиональному общению.</p>
       </div>
@@ -591,8 +587,17 @@
       siteHeader.classList.toggle('brand-visible',
         aboutSection.getBoundingClientRect().top <= siteHeader.getBoundingClientRect().bottom);
     };
+    const headerContactButton=document.querySelector('.site-header .header-cta');
+    const syncHeaderBrandHeight=()=>{
+      siteHeader.style.setProperty('--header-cta-height',headerContactButton.getBoundingClientRect().height+'px');
+    };
     window.addEventListener('scroll',syncHeaderBrand,{passive:true});
     window.addEventListener('resize',syncHeaderBrand,{passive:true});
+    window.addEventListener('resize',syncHeaderBrandHeight,{passive:true});
+    if('ResizeObserver' in window){
+      new ResizeObserver(syncHeaderBrandHeight).observe(headerContactButton);
+    }
+    syncHeaderBrandHeight();
     syncHeaderBrand();
     const navigation=document.getElementById('navigation');
     const menuButton=document.querySelector('.menu-btn');
