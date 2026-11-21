@@ -384,11 +384,37 @@
     }
     @media(prefers-reduced-motion:reduce){.telegram-primary{transition:none}}
   </style>
+
+  <style id="sticky-header-brand-reveal">
+    /* The pixel portrait and name reveal only as the "About" section reaches the sticky header. */
+    .site-header .header-brand{
+      display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+      visibility:hidden;opacity:0;pointer-events:none;
+      transform:translateY(-6px);transition:opacity .2s ease,transform .2s ease,visibility .2s;
+    }
+    .site-header.brand-visible .header-brand{
+      visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0);
+    }
+    .site-header .header-brand img{
+      display:block;flex:0 0 auto;width:1em;height:1em;max-height:1em;
+      border-radius:3px;object-fit:cover;
+    }
+    @media(max-width:520px){
+      .site-header .header-inner{gap:10px}
+      .site-header .header-brand{gap:5px;font-size:clamp(10px,2.9vw,14px);letter-spacing:-.04em}
+    }
+    @media(max-width:360px){
+      .site-header .header-inner{gap:6px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .site-header .header-brand{transition:none}
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="#top" aria-label="На главную"><span>МАРИЯ ДЕНИСОВА</span></a>
+      <a class="brand header-brand" href="#top" aria-label="Мария Денисова — на главную"><img src="apple-touch-icon.png?v=2" alt="" width="20" height="20" decoding="async"><span>МАРИЯ ДЕНИСОВА</span></a>
       <nav class="main-nav" id="navigation" aria-label="Главное меню">
         <a href="#about">О себе</a><a href="#experience">Опыт</a><a href="#results">Результаты</a><a href="#portfolio">Портфолио</a><a href="#education">Образование</a>
       </nav>
@@ -557,6 +583,17 @@
     </div></section>
   </main>
   <script>
+
+    // Show the header identity only when section 01 enters the reading area.
+    const siteHeader=document.querySelector('.site-header');
+    const aboutSection=document.getElementById('about');
+    const syncHeaderBrand=()=>{
+      siteHeader.classList.toggle('brand-visible',
+        aboutSection.getBoundingClientRect().top <= siteHeader.getBoundingClientRect().bottom);
+    };
+    window.addEventListener('scroll',syncHeaderBrand,{passive:true});
+    window.addEventListener('resize',syncHeaderBrand,{passive:true});
+    syncHeaderBrand();
     const navigation=document.getElementById('navigation');
     const menuButton=document.querySelector('.menu-btn');
     menuButton.addEventListener('click',()=>{const open=navigation.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню')});
