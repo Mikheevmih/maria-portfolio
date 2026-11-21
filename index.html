@@ -408,6 +408,48 @@
     #results .result-brand>span:last-child{min-width:0}
     @media(max-width:520px){#results .result-brand{gap:6px}#results .result-brand-logo{flex-basis:20px;width:20px;height:20px}}
   </style>
+
+  <style id="contact-character-right">
+    /* 16-bit avatar accompanies the contact headline, rather than appearing underneath it. */
+    .contact-section .contact-top{
+      display:grid;grid-template-columns:minmax(0,1fr) minmax(155px,30%);
+      grid-template-rows:auto auto;column-gap:clamp(4px,2vw,26px);
+      align-items:end;
+    }
+    .contact-section .contact-headline{grid-column:1;grid-row:1;min-width:0;max-width:none}
+    .contact-section .contact-top h2{font-size:clamp(55px,7.3vw,112px);line-height:.94;letter-spacing:-.075em;white-space:nowrap}
+    .contact-section .contact-caption{
+      grid-column:1;grid-row:2;max-width:440px;margin:24px 0 0;
+      font-size:14px;line-height:1.7;
+    }
+    .contact-character-wrap{
+      grid-column:2;grid-row:1 / span 2;justify-self:end;align-self:end;
+      width:100%;max-width:340px;min-width:0;margin:0 0 -4px;
+      pointer-events:none;
+    }
+    .contact-character{
+      display:block;width:100%;height:auto;object-fit:contain;
+      image-rendering:pixelated;
+      filter:drop-shadow(0 14px 22px rgba(1,30,116,.24));
+    }
+    @media(max-width:800px){
+      .contact-section .contact-top{grid-template-columns:minmax(0,1fr) 31%;column-gap:8px}
+      .contact-section .contact-top h2{font-size:clamp(44px,7.7vw,66px)}
+    }
+    @media(max-width:520px){
+      .contact-section .contact-top{
+        grid-template-columns:minmax(0,1fr) 36%;grid-template-rows:auto auto;
+        column-gap:0;align-items:center;
+      }
+      .contact-section .contact-top h2{
+        font-size:clamp(28px,8.5vw,44px);line-height:1;letter-spacing:-.075em;
+      }
+      .contact-character-wrap{grid-column:2;grid-row:1;align-self:end;margin:0 0 -2px}
+      .contact-section .contact-caption{
+        grid-column:1 / -1;grid-row:2;max-width:100%;margin:18px 0 0;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -557,7 +599,9 @@
       <div class="contact-top" style="margin-top:32px">
         <div class="contact-headline">
           <h2>СДЕЛАЕМ<br>ЧТО-ТО<br>ЗАМЕТНОЕ?</h2>
-          
+        </div>
+        <div class="contact-character-wrap">
+          <img class="contact-character" src="assets/contact-character.png" width="112" height="140" loading="lazy" decoding="async" alt="Пиксельная Мария с уверенной улыбкой указывает на посетителя">
         </div>
         <p class="contact-caption">Креативные спецпроекты, продуктовый маркетинг, запуски и коллаборации. Открыта к профессиональному общению.</p>
       </div>
