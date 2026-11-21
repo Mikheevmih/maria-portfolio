@@ -483,9 +483,8 @@
       .site-header .brand-word-filled{color:#07265c}
       .site-header .brand-dot{color:#1766fa}
       .site-header .brand-word-outline{
-        position:relative;color:transparent;
-        -webkit-text-stroke:.75px #08265e;
-        paint-order:stroke fill;
+        position:relative;color:#07265c;
+        -webkit-text-stroke:0;
       }
       .site-header .brand-word-outline::after{
         content:"";position:absolute;z-index:-1;
@@ -501,7 +500,6 @@
       .site-header .header-brand .brand-text-mobile{
         font-size:clamp(9px,2.72vw,12px);gap:.25em;
       }
-      .site-header .brand-word-outline{-webkit-text-stroke:.65px #08265e}
     }
     @media(max-width:360px){
       .site-header .header-brand .brand-text-mobile{
@@ -537,7 +535,7 @@
     html[data-theme="dark"] .header-cta:hover{background:#3275e9;color:#fff}
     html[data-theme="dark"] .menu-btn span{background:#eff7ff}
     html[data-theme="dark"] .site-header .brand-word-filled{color:#f0f6ff}
-    html[data-theme="dark"] .site-header .brand-word-outline{-webkit-text-stroke:.75px #e4efff}
+    html[data-theme="dark"] .site-header .brand-word-outline{color:#f0f6ff;-webkit-text-stroke:0}
     html[data-theme="dark"] .hero{
       background:
         radial-gradient(ellipse 38% 58% at 90% 30%,rgba(30,95,224,.33),transparent 83%),
