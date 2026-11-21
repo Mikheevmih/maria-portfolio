@@ -345,6 +345,45 @@
     .exp-company .exp-logo:has(img[hidden]) { display:none; }
     @media(max-width:520px) { .exp-company .exp-logo.exp-logo-x5{flex-basis:22px;width:22px;max-width:22px;} }
   </style>
+
+  <style id="contact-telegram-primary">
+    /* Contacts: lead visitors from the headline to the primary Telegram action. */
+    .contact-headline{min-width:0;max-width:800px;flex:1 1 auto}
+    .contact-headline h2{margin:0}
+    .contact-flow-arrow{
+      display:block;width:clamp(180px,32vw,345px);height:auto;
+      margin:12px 0 -10px clamp(20px,19vw,185px);
+      overflow:visible;filter:drop-shadow(0 3px 7px rgba(2,35,121,.2));
+      pointer-events:none
+    }
+    .contact-cta-wrap{display:flex;flex-direction:column;align-items:flex-start;gap:19px;padding:12px 0 68px}
+    .telegram-primary{
+      display:inline-flex;align-items:center;gap:15px;max-width:100%;
+      padding:19px 24px;border-radius:100px;background:#f1fbff;color:#073593;
+      font-size:clamp(18px,2.8vw,31px);font-weight:850;letter-spacing:-.045em;
+      box-shadow:0 14px 38px rgba(5,36,133,.24);
+      transition:transform .2s ease,background .2s ease,box-shadow .2s ease
+    }
+    .telegram-primary:hover{transform:translateY(-3px);background:#ccf6ff;box-shadow:0 17px 40px rgba(5,36,133,.32)}
+    .telegram-primary:focus-visible,.contact-secondary a:focus-visible{outline:3px solid #b8f7ff;outline-offset:4px}
+    .telegram-primary .telegram-symbol{height:1.05em;width:1.05em;flex-shrink:0}
+    .telegram-primary .ui-icon{height:.9em;width:.9em;flex-shrink:0}
+    .contact-secondary{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;font-size:13px;color:rgba(241,251,255,.78)}
+    .contact-secondary a{text-decoration:underline;text-underline-offset:5px;color:#e9fbff}
+    .contact-secondary a:hover{color:#b8f7ff}
+    @media(max-width:800px){
+      .contact-top{gap:12px}
+      .contact-flow-arrow{width:clamp(185px,54vw,260px);margin:12px 0 -3px clamp(35px,24vw,120px)}
+      .contact-cta-wrap{padding:4px 0 52px;gap:20px}
+    }
+    @media(max-width:520px){
+      .contact-top h2{font-size:clamp(42px,12.4vw,59px);line-height:.96}
+      .contact-flow-arrow{width:min(65vw,245px);margin:14px 0 0 clamp(30px,20vw,95px)}
+      .telegram-primary{font-size:clamp(17px,5vw,21px);padding:17px 19px;gap:10px}
+      .contact-secondary{flex-direction:column;align-items:flex-start;gap:9px}
+    }
+    @media(prefers-reduced-motion:reduce){.telegram-primary{transition:none}}
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -493,8 +532,27 @@
     </section>
     <section class="contact-section" id="contacts"><div class="wrap">
       <span class="eyebrow">06 / Контакты</span>
-      <div class="contact-top" style="margin-top:32px"><h2>СДЕЛАЕМ<br>ЧТО-ТО<br>ЗАМЕТНОЕ.</h2><p class="contact-caption">Креативные спецпроекты, продуктовый маркетинг, запуски и коллаборации. Открыта к профессиональному общению.</p></div>
-      <div class="email-wrap"><a class="email-link" href="mailto:denisovamarie1@gmail.com">denisovamarie1@gmail.com <span aria-hidden="true"><svg class="ui-icon ui-icon-ne" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19 19 5M8 5h11v11"/></svg></span></a><div class="contact-links"><a href="https://t.me/ituoe" target="_blank" rel="noopener noreferrer">Telegram <svg class="ui-icon ui-icon-ne" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19 19 5M8 5h11v11"/></svg></a><a href="tel:+79165549991">+7 916 554-99-91 <svg class="ui-icon ui-icon-ne" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19 19 5M8 5h11v11"/></svg></a><span>Москва, Россия</span></div></div>
+      <div class="contact-top" style="margin-top:32px">
+        <div class="contact-headline">
+          <h2>СДЕЛАЕМ<br>ЧТО-ТО<br>ЗАМЕТНОЕ?</h2>
+          <svg class="contact-flow-arrow" viewBox="0 0 360 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M334 10C295 16 310 48 242 59C176 70 165 60 121 85C91 102 62 100 24 104" stroke="#B8F7FF" stroke-width="9" stroke-linecap="round"/>
+            <path d="M57 76L21 104L61 117" stroke="#B8F7FF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="contact-caption">Креативные спецпроекты, продуктовый маркетинг, запуски и коллаборации. Открыта к профессиональному общению.</p>
+      </div>
+      <div class="contact-cta-wrap">
+        <a class="telegram-primary" href="https://t.me/ituoe" target="_blank" rel="noopener noreferrer">
+          <svg class="telegram-symbol" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="m21 3-7.2 18-4.4-7-6.4-3.2L21 3Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="m9.4 14 5-4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+          <span>Написать в Telegram</span>
+          <svg class="ui-icon ui-icon-ne" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19 19 5M8 5h11v11"/></svg>
+        </a>
+        <div class="contact-secondary">
+          <a href="mailto:denisovamarie1@gmail.com">denisovamarie1@gmail.com</a>
+          <span>Москва, Россия</span>
+        </div>
+      </div>
       <footer class="footer"><span>© <span id="year">2026</span> Мария Денисова</span><span>Marketing / Creative / Growth</span><a href="#top">Наверх <svg class="ui-icon ui-icon-up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20V4m-7 7 7-7 7 7"/></svg></a></footer>
     </div></section>
   </main>
