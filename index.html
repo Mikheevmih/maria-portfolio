@@ -460,11 +460,51 @@
       }
     }
   </style>
+
+  <style id="mobile-stylized-header-name">
+    /* Use the recognizable two-tone hero wordmark in the mobile sticky header. */
+    .site-header .brand-text-mobile{display:none}
+    @media(max-width:800px){
+      .site-header .header-brand .brand-text-desktop{display:none}
+      .site-header .header-brand .brand-text-mobile{
+        display:inline-flex;align-items:center;gap:.30em;
+        white-space:nowrap;font-size:clamp(10px,2.55vw,15px);
+        font-weight:900;letter-spacing:-.075em;line-height:1.05;
+      }
+      .site-header .brand-word-filled{color:#07265c}
+      .site-header .brand-dot{color:#1766fa}
+      .site-header .brand-word-outline{
+        position:relative;color:transparent;
+        -webkit-text-stroke:.75px #08265e;
+        paint-order:stroke fill;
+      }
+      .site-header .brand-word-outline::after{
+        content:"";position:absolute;z-index:-1;
+        left:1%;right:-2%;bottom:-3px;height:3px;
+        background:linear-gradient(90deg,#3167ff,#78dbff);
+        transform:rotate(-1deg);pointer-events:none;
+      }
+      /* The name now lives in the header, not above the photo. */
+      .hero .hero-grid .hero-content h1{display:none}
+    }
+    @media(max-width:520px){
+      .site-header .header-brand{gap:4px}
+      .site-header .header-brand .brand-text-mobile{
+        font-size:clamp(9px,2.72vw,12px);gap:.25em;
+      }
+      .site-header .brand-word-outline{-webkit-text-stroke:.65px #08265e}
+    }
+    @media(max-width:360px){
+      .site-header .header-brand .brand-text-mobile{
+        font-size:clamp(8px,2.55vw,10px);gap:.20em;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand header-brand" href="#top" aria-label="Мария Денисова — на главную"><img src="apple-touch-icon.png?v=2" alt="" width="20" height="20" decoding="async"><span>МАРИЯ ДЕНИСОВА</span></a>
+      <a class="brand header-brand" href="#top" aria-label="Мария Денисова — на главную"><img src="apple-touch-icon.png?v=2" alt="" width="20" height="20" decoding="async"><span class="brand-text-desktop">МАРИЯ ДЕНИСОВА</span><span class="brand-text-mobile" aria-hidden="true"><span class="brand-word-filled">МАРИЯ<span class="brand-dot">.</span></span><span class="brand-word-outline">ДЕНИСОВА</span></span></a>
       <nav class="main-nav" id="navigation" aria-label="Главное меню">
         <a href="#about">О себе</a><a href="#experience">Опыт</a><a href="#results">Результаты</a><a href="#portfolio">Портфолио</a><a href="#education">Образование</a>
       </nav>
