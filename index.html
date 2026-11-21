@@ -399,6 +399,15 @@
       .site-header .header-inner{gap:6px}
     }
   </style>
+
+  <style id="results-company-logos">
+    /* Compact self-hosted company logos beside each results-card brand label. */
+    #results .result-brand{display:flex;align-items:center;gap:7px;flex-wrap:nowrap;min-width:0}
+    #results .result-index{flex:0 0 auto}
+    #results .result-brand-logo{display:block;flex:0 0 21px;width:21px;height:21px;max-width:21px;max-height:21px;object-fit:contain;border-radius:4px;background:#fff}
+    #results .result-brand>span:last-child{min-width:0}
+    @media(max-width:520px){#results .result-brand{gap:6px}#results .result-brand-logo{flex-basis:20px;width:20px;height:20px}}
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -474,13 +483,12 @@
     <section class="section" id="results">
       <div class="wrap">
         <div class="section-head reveal"><div><span class="eyebrow">03 / Результаты</span><h2 style="margin-top:25px">НЕ ТОЛЬКО<br>КРАСИВО.</h2></div><p class="section-desc">Шесть конкретных показателей из реализованных проектов. Без «средней температуры»: у каждой цифры свой бренд и контекст.</p></div>
-        <div class="results-grid reveal"><div class="result"><span class="smallcaps">01 / X5 Digital</span><div><div class="result-number">37 млн</div><div class="result-label">охват первого молодёжного спецпроекта Доставки X5</div><div class="result-note">Результат одной кампании</div></div></div>
-<div class="result"><span class="smallcaps">02 / X5 Digital</span><div><div class="result-number">+52%</div><div class="result-label">к среднему чеку клиента в рамках этого спецпроекта</div><div class="result-note">По данным резюме</div></div></div>
-<div class="result"><span class="smallcaps">03 / X5 Digital</span><div><div class="result-number">2 млн</div><div class="result-label">уникальных посетителей лендинга спецпроекта</div><div class="result-note">В рамках той же кампании</div></div></div>
-<div class="result"><span class="smallcaps">04 / Ozon</span><div><div class="result-number">50 млн</div><div class="result-label">охват самого успешного из семи крупных спецпроектов</div><div class="result-note">Один из проектов маркетплейса</div></div></div>
-<div class="result"><span class="smallcaps">05 / Ozon</span><div><div class="result-number">+21%</div><div class="result-label">к продажам в ключевых категориях маркетплейса</div><div class="result-note">В результате спецпроектов</div></div></div>
-<div class="result"><span class="smallcaps">06 / МТС</span><div><div class="result-number">+18%</div><div class="result-label">к трафику после коллаборации с Юрент</div><div class="result-note">Дополнительно: +10% новых регистраций</div></div></div></div>
-        <p class="results-footnote">Метрики приведены по резюме Марии Денисовой (сентябрь 2026). Показатели относятся к конкретным кампаниям и не суммируются между собой.</p>
+        <div class="results-grid reveal"><div class="result"><span class="smallcaps result-brand"><span class="result-index">01 /</span><img class="result-brand-logo" src="assets/company/x5.svg" alt="" loading="lazy" decoding="async"><span>X5 Digital</span></span><div><div class="result-number">37 млн</div><div class="result-label">охват первого молодёжного спецпроекта Доставки X5</div><div class="result-note">Результат одной кампании</div></div></div>
+<div class="result"><span class="smallcaps result-brand"><span class="result-index">02 /</span><img class="result-brand-logo" src="assets/company/x5.svg" alt="" loading="lazy" decoding="async"><span>X5 Digital</span></span><div><div class="result-number">+52%</div><div class="result-label">к среднему чеку клиента в рамках этого спецпроекта</div></div></div>
+<div class="result"><span class="smallcaps result-brand"><span class="result-index">03 /</span><img class="result-brand-logo" src="assets/company/x5.svg" alt="" loading="lazy" decoding="async"><span>X5 Digital</span></span><div><div class="result-number">2 млн</div><div class="result-label">уникальных посетителей лендинга спецпроекта</div><div class="result-note">В рамках той же кампании</div></div></div>
+<div class="result"><span class="smallcaps result-brand"><span class="result-index">04 /</span><img class="result-brand-logo" src="assets/company/ozon.svg" alt="" loading="lazy" decoding="async"><span>Ozon</span></span><div><div class="result-number">50 млн</div><div class="result-label">охват самого успешного из семи крупных спецпроектов</div><div class="result-note">Один из проектов маркетплейса</div></div></div>
+<div class="result"><span class="smallcaps result-brand"><span class="result-index">05 /</span><img class="result-brand-logo" src="assets/company/ozon.svg" alt="" loading="lazy" decoding="async"><span>Ozon</span></span><div><div class="result-number">+21%</div><div class="result-label">к продажам в ключевых категориях маркетплейса</div><div class="result-note">В результате спецпроектов</div></div></div>
+<div class="result"><span class="smallcaps result-brand"><span class="result-index">06 /</span><img class="result-brand-logo" src="assets/company/mts.svg" alt="" loading="lazy" decoding="async"><span>МТС</span></span><div><div class="result-number">+18%</div><div class="result-label">к трафику после коллаборации с Юрент</div><div class="result-note">Дополнительно: +10% новых регистраций</div></div></div></div>
       </div>
     </section>
     <section class="section" id="portfolio">
