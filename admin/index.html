@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="light">
+  <title>Редактор сайта | Мария Денисова</title>
+  <style>
+    :root{font-family:Inter,Manrope,Arial,sans-serif;color:#061747;background:#edf5ff;font-synthesis:none}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh}
+    button,input,textarea{font:inherit}
+    button{cursor:pointer}
+    a{color:#1456db}
+    .hidden{display:none!important}
+    .login-page{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse 70% 60% at 90% 15%,#9ed6ff,transparent),#edf5ff}
+    .login-card{width:min(100%,470px);background:#fff;border:1px solid #ccddfa;border-radius:25px;padding:clamp(24px,5vw,42px);box-shadow:0 20px 65px #1256f419}
+    .kicker{color:#195fdd;font-size:11px;font-weight:900;letter-spacing:.19em;text-transform:uppercase}
+    h1{font-size:clamp(30px,4vw,42px);line-height:1.1;letter-spacing:-.05em;margin:12px 0 14px}
+    .muted{color:#62799d}
+    .caption{font-size:13px;line-height:1.6}
+    label{display:block;font-size:12px;font-weight:750;margin:16px 0 7px}
+    input,textarea{width:100%;background:#fafdff;border:1px solid #bfd2f4;border-radius:12px;padding:12px 13px;color:#061747;outline:0;font-size:14px}
+    input:focus,textarea:focus{border-color:#2874ff;box-shadow:0 0 0 3px #2874ff1a}
+    textarea{resize:vertical;min-height:52px;line-height:1.5}
+    .primary{border:0;border-radius:12px;padding:13px 17px;background:#1256f4;color:#fff;font-weight:750}
+    .primary:disabled{opacity:.5;cursor:not-allowed}
+    .secondary{background:white;border:1px solid #bdd0ee;color:#153b83;border-radius:12px;padding:11px 14px;font-weight:700}
+    .login-card .primary{margin-top:22px;width:100%}
+    .message{color:#ba2844;font-size:12px;line-height:1.5;min-height:18px;margin:10px 0 0}
+    .message.good{color:#147148}
+    .app{min-height:100vh}
+    .topbar{position:sticky;top:0;z-index:10;background:#ffffffee;backdrop-filter:blur(12px);border-bottom:1px solid #cfdef5;padding:13px clamp(16px,3vw,32px);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .topbar strong{font-size:16px;letter-spacing:-.03em}
+    .topbar small{display:block;font-size:11px;color:#6680a3;margin-top:4px}
+    .actions{display:flex;flex-wrap:wrap;gap:8px}
+    .workspace{display:grid;grid-template-columns:minmax(350px,.95fr) minmax(400px,1.05fr);gap:0;height:calc(100vh - 77px)}
+    .editor{background:#f5f9ff;overflow:auto;border-right:1px solid #cfdef5;padding:24px clamp(16px,3vw,30px)}
+    .intro{font-size:13px;line-height:1.7;margin:0 0 18px;color:#5b7398}
+    .tabs{display:flex;gap:6px;margin-bottom:16px}
+    .tab{border:1px solid #bfd1ef;border-radius:11px;background:white;padding:12px 14px;color:#214b93;font-size:12px;font-weight:800}
+    .tab[aria-selected=true]{background:#1256f4;color:white;border-color:#1256f4}
+    .toolbar{display:flex;align-items:center;gap:10px;margin:10px 0 18px}
+    .toolbar input{min-width:0}
+    .count{font-size:11px;white-space:nowrap;color:#6680a3}
+    .field{padding:15px;margin:0 0 9px;background:white;border:1px solid #d3e0f4;border-radius:15px}
+    .field label{margin:0 0 8px;font-size:12px;line-height:1.5}
+    .field small{display:block;color:#6680a3;font-size:10px;margin:0 0 9px}
+    .group-title{font-size:15px;margin:26px 0 12px;font-weight:800;letter-spacing:-.03em}
+    .field textarea{background:#fff;min-height:48px;font-size:13px}
+    .field textarea.long{min-height:91px}
+    .preview{overflow:auto;background:#d5e5fb;padding:20px;display:flex;flex-direction:column}
+    .preview-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 0 12px}
+    .preview-header strong{font-size:13px}
+    .preview-controls{display:flex;gap:6px}
+    .preview-controls button{border:1px solid #acc5ed;border-radius:9px;padding:7px 10px;background:white;color:#113b80;font-size:12px;font-weight:800}
+    .preview-controls button[aria-pressed=true]{background:#1256f4;color:white}
+    .screen{width:100%;max-width:100%;height:100%;min-height:520px;margin:0 auto;background:#fff;border:1px solid #b2c8eb;box-shadow:0 18px 55px #0c32621b;border-radius:14px;overflow:hidden;transition:max-width .2s}
+    .screen.mobile{max-width:390px}
+    .screen iframe{display:block;border:0;background:#fff;width:100%;height:100%}
+    .hint{padding:18px;border:1px dashed #93b7f1;background:#edf6ff;border-radius:16px;font-size:13px;line-height:1.7;color:#315487}
+    .drop{border:2px dashed #8fb2e9;background:#fff;border-radius:15px;padding:28px 16px;text-align:center}
+    .drop input{margin:14px 0 0}
+    .photo-preview{display:block;max-height:340px;max-width:100%;border-radius:16px;margin:18px auto;object-fit:contain}
+    .status{font-size:12px;max-width:350px;color:#44709d}
+    .empty{font-size:13px;color:#6c81a3;padding:16px}
+    @media(max-width:960px){.workspace{height:auto;display:flex;flex-direction:column}.editor{overflow:visible;border-right:0}.preview{min-height:550px;height:72vh}.screen{min-height:400px}.topbar{position:relative}}
+    @media(max-width:520px){.actions{width:100%}.actions button,.actions a{flex:1}.editor{padding:18px 13px}.tabs{overflow:auto}.tab{white-space:nowrap}.preview{padding:12px}.status{max-width:none}}
+  </style>
+</head>
+<body>
+  <main class="login-page" id="loginPage">
+    <form id="loginForm" class="login-card">
+      <span class="kicker">Luminous Blue / CMS</span>
+      <h1>Редактор портфолио</h1>
+      <p class="caption muted">Вход нужен, чтобы изменять содержимое сайта. Пароль проверяется на сервере, а не в этой странице.</p>
+      <label for="apiUrl">Адрес защищённого API</label>
+      <input id="apiUrl" type="url" placeholder="https://maria-portfolio-admin-api.имя.workers.dev" required autocomplete="off">
+      <label for="username">Логин</label>
+      <input id="username" type="text" autocomplete="username" required>
+      <label for="password">Пароль</label>
+      <input id="password" type="password" autocomplete="current-password" required>
+      <button class="primary" id="loginButton" type="submit">Войти в админку ↗</button>
+      <div id="loginError" class="message" role="alert"></div>
+      <p class="caption muted">Настройка API описана в <a href="./README.md" target="_blank" rel="noreferrer">инструкции</a>. Без неё редактирование недоступно.</p>
+    </form>
+  </main>
+
+  <main id="app" class="app hidden">
+    <header class="topbar">
+      <div><strong>Мария Денисова <span style="color:#2874ff">/</span> Админка</strong><small>Изменения сохраняются коммитами в GitHub</small></div>
+      <div class="actions">
+        <a class="secondary" href="../" target="_blank" rel="noopener noreferrer">Открыть сайт ↗</a>
+        <button class="secondary" id="refreshPreview" type="button">Обновить превью</button>
+        <button class="secondary" id="logout" type="button">Выход</button>
+        <button class="primary" id="save" type="button">Опубликовать</button>
+      </div>
+    </header>
+    <div class="workspace">
+      <section class="editor">
+        <span class="kicker">Управление содержимым</span>
+        <h1 style="font-size:27px;margin:10px 0">Редактируй. Смотри. Публикуй.</h1>
+        <p class="intro">Меняй любые надписи и ссылки, не трогая вёрстку. Нажми «Обновить превью», чтобы увидеть результат, затем «Опубликовать».</p>
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab" data-tab="texts" aria-selected="true">Тексты</button>
+          <button type="button" class="tab" data-tab="links" aria-selected="false">Ссылки</button>
+          <button type="button" class="tab" data-tab="photo" aria-selected="false">Фотография</button>
+        </div>
+        <div id="textsPane">
+          <div class="toolbar"><input id="textSearch" type="search" placeholder="Найти текст или раздел…" aria-label="Поиск текстов"><span id="textCount" class="count"></span></div>
+          <div id="textFields"></div>
+        </div>
+        <div id="linksPane" class="hidden">
+          <div class="toolbar"><input id="linkSearch" type="search" placeholder="Найти ссылку…" aria-label="Поиск ссылок"><span id="linkCount" class="count"></span></div>
+          <div id="linkFields"></div>
+        </div>
+        <div id="photoPane" class="hidden">
+          <div class="hint">Загрузи новый портрет в JPG. Админка уменьшит изображение перед сохранением. Исходное фото на сайте не меняется, пока не нажмёшь «Опубликовать».</div>
+          <div class="drop">
+            <strong>Выбрать новую фотографию</strong>
+            <input id="photoFile" type="file" accept="image/jpeg,.jpg,.jpeg">
+            <img id="photoPreview" class="photo-preview" src="../photo.jpg" alt="Текущая фотография">
+          </div>
+        </div>
+        <p id="status" class="status" role="status"></p>
+      </section>
+      <section class="preview" aria-label="Предпросмотр сайта">
+        <div class="preview-header"><strong>Предпросмотр</strong><div class="preview-controls"><button id="desktop" aria-pressed="true">Десктоп</button><button id="mobile" aria-pressed="false">Мобильный</button></div></div>
+        <div id="screen" class="screen"><iframe id="frame" title="Предпросмотр портфолио" sandbox="allow-same-origin"></iframe></div>
+      </section>
+    </div>
+  </main>
+  <script>
+    "use strict";
+    const $ = (sel) => document.querySelector(sel);
+    const state = { api:"", token:"", html:"", sha:"", doc:null, texts:[], links:[], photo:null, dirty:false };
+    const KEY = "maria-portfolio-admin";
+    const sectionNames = {
+      header:"Шапка", hero:"Первый экран", about:"Обо мне", experience:"Опыт",
+      results:"Результаты", portfolio:"Кейсы", education:"Образование",
+      contacts:"Контакты", footer:"Подвал"
+    };
+    function message(text, fail=false) {
+      $("#status").textContent=text;
+      $("#status").style.color=fail?"#b82d4b":"#32669b";
+    }
+    function loginMessage(text) { $("#loginError").textContent=text; }
+    function cleanUrl(url) { return url.trim().replace(/\/+$/,""); }
+    async function request(path,method="GET",data=null) {
+      const headers = { "Authorization":"Bearer "+state.token };
+      if (data !== null) headers["Content-Type"]="application/json";
+      let res;
+      try {
+        res=await fetch(state.api+path,{method,headers,body:data===null?undefined:JSON.stringify(data),cache:"no-store"});
+      } catch { throw new Error("Не удалось подключиться к API. Проверь адрес, деплой Worker и CORS."); }
+      const body=await res.json().catch(()=>({}));
+      if (!res.ok) {
+        if (res.status===401) { sessionStorage.removeItem(KEY+"-token"); state.token=""; showLogin(); }
+        throw new Error(body.error||"Ошибка API ("+res.status+")");
+      }
+      return body;
+    }
+    function showLogin() { $("#app").classList.add("hidden");$("#loginPage").classList.remove("hidden"); }
+    function showApp() { $("#loginPage").classList.add("hidden");$("#app").classList.remove("hidden"); }
+    function groupFor(element) {
+      if (element.closest("header.site-header")) return "Шапка";
+      const section=element.closest("section[id]");
+      if (section) return sectionNames[section.id] || section.id;
+      if (element.closest("section.hero")) return "Первый экран";
+      if (element.closest("footer")) return "Подвал";
+      return "Другое";
+    }
+    function describe(node) {
+      const el=node.nodeType===Node.TEXT_NODE?node.parentElement:node;
+      let tag=el.tagName.toLowerCase();
+      const text=(el.textContent||"").replace(/\s+/g," ").trim();
+      if (tag==="h1"||tag==="h2"||tag==="h3") return "Заголовок";
+      if (tag==="a") return "Текст ссылки";
+      if (tag==="button") return "Кнопка";
+      if (tag==="p") return "Абзац";
+      if (tag==="small") return "Подпись";
+      return tag==="span"?"Фрагмент текста":"Текст";
+    }
+    function collect() {
+      state.texts=[];state.links=[];
+      const walker=state.doc.createTreeWalker(state.doc.body,NodeFilter.SHOW_TEXT,{
+        acceptNode(node){
+          if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          const parent=node.parentElement;
+          if (!parent||parent.closest("script,style,svg,noscript,template")) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      let node;
+      while ((node=walker.nextNode())) state.texts.push({
+        node,original:node.nodeValue,group:groupFor(node.parentElement),label:describe(node)
+      });
+      state.doc.querySelectorAll("a[href]").forEach((a)=>{
+        state.links.push({node:a,group:groupFor(a),label:(a.textContent||"Ссылка").replace(/\s+/g," ").trim().slice(0,110)});
+      });
+    }
+    function renderTexts() {
+      const q=$("#textSearch").value.trim().toLowerCase();
+      const container=$("#textFields");container.replaceChildren();
+      const matches=state.texts.map((item,index)=>({...item,index})).filter(item=>
+        !q||(item.node.nodeValue+" "+item.group+" "+item.label).toLowerCase().includes(q));
+      $("#textCount").textContent=matches.length+" / "+state.texts.length;
+      let last="";
+      for(const item of matches) {
+        if(item.group!==last){const h=document.createElement("h2");h.className="group-title";h.textContent=item.group;container.append(h);last=item.group;}
+        const field=document.createElement("div");field.className="field";
+        const label=document.createElement("label");label.textContent=item.label+" · "+String(item.index+1).padStart(2,"0");
+        const input=document.createElement("textarea");input.rows=item.node.nodeValue.trim().length>85?3:2;input.classList.toggle("long",input.rows>2);
+        input.value=item.node.nodeValue.trim();input.id="text-"+item.index;label.htmlFor=input.id;
+        const start=item.original.match(/^\s*/)[0],end=item.original.match(/\s*$/)[0];
+        input.addEventListener("input",()=>{
+          item.node.nodeValue=start+input.value+end;state.dirty=true;
+        });
+        field.append(label,input);container.append(field);
+      }
+      if(!matches.length){const e=document.createElement("div");e.className="empty";e.textContent="Ничего не найдено";container.append(e);}
+    }
+    function validHref(href) {
+      return href.startsWith("#") || /^(https?:\/\/|mailto:|tel:)/i.test(href);
+    }
+    function renderLinks() {
+      const q=$("#linkSearch").value.trim().toLowerCase();
+      const container=$("#linkFields");container.replaceChildren();
+      const matches=state.links.filter(item=>!q||(item.label+" "+item.node.getAttribute("href")+" "+item.group).toLowerCase().includes(q));
+      $("#linkCount").textContent=matches.length+" / "+state.links.length;
+      for(const item of matches) {
+        const field=document.createElement("div");field.className="field";
+        const label=document.createElement("label");label.textContent=item.label||"Ссылка";
+        const small=document.createElement("small");small.textContent=item.group;
+        const input=document.createElement("input");input.type="text";input.value=item.node.getAttribute("href");
+        input.addEventListener("input",()=>{item.node.setAttribute("href",input.value.trim());state.dirty=true;});
+        field.append(label,small,input);container.append(field);
+      }
+      if(!matches.length){const e=document.createElement("div");e.className="empty";e.textContent="Ничего не найдено";container.append(e);}
+    }
+    function serialisedHtml() {
+      return "<!doctype html>\n"+state.doc.documentElement.outerHTML;
+    }
+    function refreshPreview(){
+      const snapshot=state.doc.cloneNode(true);
+      snapshot.querySelectorAll("script").forEach(s=>s.remove());
+      const base=snapshot.createElement("base");
+      const root=new URL("../",window.location.href);
+      base.href=root.href;snapshot.head.prepend(base);
+      $("#frame").srcdoc="<!doctype html>\n"+snapshot.documentElement.outerHTML;
+    }
+    function setTab(name) {
+      document.querySelectorAll(".tab").forEach(button=>button.setAttribute("aria-selected",String(button.dataset.tab===name)));
+      ["texts","links","photo"].forEach(tab=>$("#"+tab+"Pane").classList.toggle("hidden",tab!==name));
+    }
+    async function loadSite(){
+      message("Загружаю сайт из GitHub…");
+      const result=await request("/site");
+      state.html=result.html;state.sha=result.sha;
+      state.doc=new DOMParser().parseFromString(result.html,"text/html");
+      collect();renderTexts();renderLinks();refreshPreview();
+      state.dirty=false;state.photo=null;
+      message("Загружено. Изменения появятся на сайте после публикации через GitHub Pages.");
+    }
+    function toBase64(bytes) {
+      let binary="";
+      for(let i=0;i<bytes.length;i+=8192) binary+=String.fromCharCode(...bytes.subarray(i,i+8192));
+      return btoa(binary);
+    }
+    async function preparePhoto(file) {
+      if (!/^image\/jpeg$/.test(file.type) && !/\.jpe?g$/i.test(file.name)) throw new Error("Выбери фотографию в формате JPG.");
+      if (file.size > 15000000) throw new Error("Исходная фотография слишком большая (максимум 15 МБ).");
+      const url=URL.createObjectURL(file);
+      try {
+        const img=new Image();img.src=url;await img.decode();
+        const max=1700,scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+        const canvas=document.createElement("canvas");
+        canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));
+        canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));
+        canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);
+        const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/jpeg",.88));
+        if(!blob||blob.size>4000000) throw new Error("Файл после обработки всё ещё больше 4 МБ.");
+        const bytes=new Uint8Array(await blob.arrayBuffer());
+        return {base64:toBase64(bytes),preview:URL.createObjectURL(blob)};
+      } finally {URL.revokeObjectURL(url);}
+    }
+    async function save() {
+      $("#save").disabled=true;message("Проверяю изменения…");
+      try {
+        for(const item of state.links) if(!validHref(item.node.getAttribute("href")||""))
+          throw new Error("Недопустимая ссылка: "+item.label+". Используй https://, mailto:, tel: или #.");
+        if(!state.dirty&&!state.photo){message("Новых изменений пока нет.");return;}
+        if(state.photo){
+          message("Сохраняю фотографию в GitHub…");
+          await request("/photo","PUT",{base64:state.photo.base64});
+          state.photo=null;
+        }
+        if(state.dirty){
+          message("Сохраняю тексты и ссылки в GitHub…");
+          const result=await request("/site","PUT",{html:serialisedHtml(),sha:state.sha});
+          state.sha=result.sha;state.dirty=false;state.html=serialisedHtml();
+          message("Сохранено! Коммит "+result.commit.slice(0,7)+". GitHub Pages обновит сайт после публикации.");
+        } else message("Фотография сохранена. GitHub Pages обновит её после публикации.");
+      } catch(e) {message(e.message,true);}
+      finally {$("#save").disabled=false;}
+    }
+    document.querySelectorAll(".tab").forEach(button=>button.addEventListener("click",()=>setTab(button.dataset.tab)));
+    $("#textSearch").addEventListener("input",renderTexts);
+    $("#linkSearch").addEventListener("input",renderLinks);
+    $("#refreshPreview").addEventListener("click",refreshPreview);
+    $("#save").addEventListener("click",save);
+    $("#logout").addEventListener("click",()=>{sessionStorage.removeItem(KEY+"-token");state.token="";state.doc=null;showLogin();});
+    $("#desktop").addEventListener("click",()=>{
+      $("#screen").classList.remove("mobile");$("#desktop").setAttribute("aria-pressed","true");$("#mobile").setAttribute("aria-pressed","false");
+    });
+    $("#mobile").addEventListener("click",()=>{
+      $("#screen").classList.add("mobile");$("#desktop").setAttribute("aria-pressed","false");$("#mobile").setAttribute("aria-pressed","true");
+    });
+    $("#photoFile").addEventListener("change",async(event)=>{
+      const file=event.target.files?.[0];if(!file)return;
+      try {
+        state.photo=await preparePhoto(file);
+        $("#photoPreview").src=state.photo.preview;
+        message("Фото готово к публикации. Нажми «Опубликовать».");
+      } catch(e) {message(e.message,true);}
+    });
+    $("#loginForm").addEventListener("submit",async(event)=>{
+      event.preventDefault();loginMessage("");
+      const api=cleanUrl($("#apiUrl").value);
+      if(!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(api)) {loginMessage("Укажи HTTPS-адрес API без пути.");return;}
+      $("#loginButton").disabled=true;
+      try {
+        const res=await fetch(api+"/login",{
+          method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({username:$("#username").value.trim(),password:$("#password").value})
+        });
+        const body=await res.json().catch(()=>({}));
+        if(!res.ok) throw new Error(body.error||"Не удалось войти.");
+        state.api=api;state.token=body.token;
+        localStorage.setItem(KEY+"-api",api);
+        sessionStorage.setItem(KEY+"-token",body.token);
+        $("#password").value="";
+        showApp();await loadSite();
+      } catch(e) {showLogin();loginMessage(e.message||"Ошибка подключения.");}
+      finally {$("#loginButton").disabled=false;}
+    });
+    (async()=>{
+      try {
+        const cfg=await fetch("./config.json",{cache:"no-store"}).then(r=>r.json());
+        $("#username").value=cfg.username||"";
+        state.api=cleanUrl(localStorage.getItem(KEY+"-api")||cfg.apiBaseUrl||"");
+        $("#apiUrl").value=state.api;
+        state.token=sessionStorage.getItem(KEY+"-token")||"";
+        if(state.token&&state.api){showApp();await loadSite();}
+      } catch(e){if(state.token){showLogin();loginMessage("Сессия устарела или API недоступен. Войди снова.");}}
+    })();
+  </script>
+</body>
+</html>

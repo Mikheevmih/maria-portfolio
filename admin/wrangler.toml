@@ -1,0 +1,13 @@
+name = "maria-portfolio-admin-api"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[vars]
+SITE_ORIGIN = "https://mikheevmih.github.io"
+GITHUB_REPO = "Mikheevmih/maria-portfolio"
+GITHUB_BRANCH = "main"
+ADMIN_USERNAME = "Mikheevmih"
+
+# Do not put password, session signing secret, or GitHub token in this file.
+# Store them with: npx wrangler secret put SECRET_NAME
